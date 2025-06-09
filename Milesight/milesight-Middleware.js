@@ -68,7 +68,7 @@ client.on('connect', function () {
 // });
 
 client.on('message', (topic, message) => {
-  const jsonMessage = JSON.parse(message.toString())[0]; // Assuming the message is wrapped in an array
+  const jsonMessage = JSON.parse(message.toString())[0]; 
 
   let decodedData;
   if (jsonMessage.sensorType === "milesight_ws523") {
@@ -128,19 +128,6 @@ function insertWS523Data(message, data) {
       .catch(err => console.error('Error executing AT101 insert query', err.stack));
   }
 
-  // function insertHeltecData(message, data) {
-  //   const query = `
-  //     INSERT INTO heltec_data(devEui, timestamp, rssi, snr, gatewayIdentifier, temperature, humidity, pressure, battery_voltage)
-  //     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
-  //   `;
-  //   const values = [
-  //     message.devEui, new Date(message.timestamp), message.rssi, message.snr, message.gatewayIdentifier,
-  //     data.temperature, data.humidity, data.pressure, data.battery_voltage
-  //   ];
-  //   pgClient.query(query, values)
-  //     .then(res => console.log('Data inserted for Heltec successfully'))
-  //     .catch(err => console.error('Error executing Heltec insert query', err.stack));
-  // }
 
   function insertHeltecData(message, data) {
     const query = `
